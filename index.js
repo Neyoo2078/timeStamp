@@ -40,12 +40,12 @@ app.get('/api/:date', function (req, res) {
     res.status(200).json({ utc: utc.utcKey, unix: utc.unixTimestamp });
     return;
   }
-  const dateCheck = date.includes('-') ? date : parseInt(date);
-  const dateValid = new Date(dateCheck);
+  const date_string = date.includes('-') ? date : parseInt(date);
+  const dateValid = new Date(date_string);
 
   const isDateValid = !isNaN(dateValid);
   if (!isDateValid) {
-    res.status(400).json('invalid date');
+    res.status(400).json({ error: 'Invalid Date' });
   } else {
     const utc = dateToUTCKey(dateValid);
 
