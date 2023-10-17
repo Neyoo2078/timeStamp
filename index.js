@@ -36,10 +36,10 @@ app.get('/api/:date', function (req, res) {
   const { date } = req.params;
 
   if (!date || date === 'undefined') {
-    const utc = dateToUTCKey(new Date());
+    const ct = dateToUTCKey(new Date());
     res
       .status(200)
-      .json(JSON.stringify({ unix: utc.unixTimestamp, utc: utc.utcKey }));
+      .json(JSON.stringify({ unix: ct.unixTimestamp, utc: ct.utcKey }));
     return;
   }
   const date_string = date.includes('-') ? date : parseInt(date);
