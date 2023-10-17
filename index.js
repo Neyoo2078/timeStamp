@@ -37,22 +37,20 @@ app.get('/api/:date', function (req, res) {
 
   if (!date || date === 'undefined') {
     const ct = dateToUTCKey(new Date());
-    res
-      .status(200)
-      .json(JSON.stringify({ unix: ct.unixTimestamp, utc: ct.utcKey }));
-    return;
-  }
-  const date_string = date.includes('-') ? date : parseInt(date);
-  const dateValid = new Date(date_string);
-
-  const isDateValid = !isNaN(dateValid);
-  if (!isDateValid) {
-    res.status(400).json({ error: 'Invalid Date' });
+    res.status(200).json({ unix: ct.unixTimestamp, utc: ct.utcKey });
   } else {
-    const utc = dateToUTCKey(dateValid);
+    const date_string = date.includes('-') ? date : parseInt(date);
+    const dateValid = new Date(date_string);
 
-    // res.json({ utc: utc.utcKey, unix: utc.unixTimestamp });
-    res.status(200).json({ utc: utc.utcKey, unix: utc.unixTimestamp });
+    const isDateValid = !isNaN(dateValid);
+    if (!isDateValid) {
+      res.status(400).json({ error: 'Invalid Date' });
+    } else {
+      const utc = dateToUTCKey(dateValid);
+
+      // res.json({ utc: utc.utcKey, unix: utc.unixTimestamp });
+      res.status(200).json({ utc: utc.utcKey, unix: utc.unixTimestamp });
+    }
   }
 });
 
